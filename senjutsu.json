@@ -1,0 +1,3704 @@
+package Storage
+{
+   import flash.display.MovieClip;
+   
+   public class SenjutsuSkillLevel extends MovieClip
+   {
+      
+      public static var skill_senjutsu:* = {
+         "skill_3000":"other",
+         "skill_3500":"other",
+         "skill_3501":"other",
+         "skill_3001":"toad",
+         "skill_3002":"toad",
+         "skill_3003":"toad",
+         "skill_3004":"toad",
+         "skill_3005":"toad",
+         "skill_3006":"toad",
+         "skill_3007":"toad",
+         "skill_3008":"toad",
+         "skill_3009":"toad",
+         "skill_3010":"toad",
+         "skill_3101":"snake",
+         "skill_3102":"snake",
+         "skill_3103":"snake",
+         "skill_3104":"snake",
+         "skill_3105":"snake",
+         "skill_3106":"snake",
+         "skill_3107":"snake",
+         "skill_3108":"snake",
+         "skill_3109":"snake",
+         "skill_3110":"snake"
+      };
+      
+      public static var skill_senjutsu_order:* = {
+         "skill_3500":"skill_1",
+         "skill_3000":"skill_2",
+         "skill_3501":"skill_3",
+         "skill_3001":"skill_1",
+         "skill_3002":"skill_2",
+         "skill_3003":"skill_3",
+         "skill_3004":"skill_4",
+         "skill_3005":"skill_5",
+         "skill_3006":"skill_6",
+         "skill_3007":"skill_7",
+         "skill_3008":"skill_8",
+         "skill_3009":"skill_9",
+         "skill_3010":"skill_10",
+         "skill_3101":"skill_1",
+         "skill_3102":"skill_2",
+         "skill_3103":"skill_3",
+         "skill_3104":"skill_4",
+         "skill_3105":"skill_5",
+         "skill_3106":"skill_6",
+         "skill_3107":"skill_7",
+         "skill_3108":"skill_8",
+         "skill_3109":"skill_9",
+         "skill_3110":"skill_10"
+      };
+       
+      
+      public var main:*;
+      
+      public function SenjutsuSkillLevel(param1:* = null)
+      {
+         super();
+         this.main = null;
+      }
+      
+      public static function getFullSenjutsuSkillWithLevel(param1:*, param2:*) : *
+      {
+         var _loc3_:* = getLevelForSenjutsuSkill(param1,param2);
+         return getSenjutsuId(param1,_loc3_);
+      }
+      
+      public static function getSenjutsuId(param1:*, param2:*) : *
+      {
+         return "senjutsu_" + skill_senjutsu[param1] + "_" + skill_senjutsu_order[param1] + "_level_" + param2;
+      }
+      
+      public static function getLevelForSenjutsuSkill(param1:*, param2:*) : *
+      {
+         var _loc3_:* = undefined;
+         var _loc5_:Array = [];
+         if(param2 != "")
+         {
+            if(param2.indexOf(",") >= 0)
+            {
+               _loc5_ = param2.split(",");
+            }
+            else
+            {
+               _loc5_ = [param2];
+            }
+         }
+         var _loc6_:* = 0;
+         while(_loc6_ < _loc5_.length)
+         {
+            if((_loc3_ = _loc5_[_loc6_].split(":"))[0] == param1)
+            {
+               return int(_loc3_[1]);
+            }
+            _loc6_++;
+         }
+         return 1;
+      }
+      
+      public static function getSenjutsuSkillLevels(param1:String, param2:* = null) : *
+      {
+         var _loc3_:* = undefined;
+         var _loc4_:* = undefined;
+         _loc3_ = {};
+         if(param2 is int)
+         {
+            param1 = getSenjutsuId(param1,param2);
+         }
+         else if(param1.indexOf("senjutsu_"))
+         {
+            param1 = getFullSenjutsuSkillWithLevel(param1,param2);
+         }
+         switch(param1)
+         {
+            case "senjutsu_other_skill_1_level_1":
+               _loc3_.name = "Senjutsu: Super Charges";
+               _loc3_.description = "Recover HP and CP 25%. If player use this skill in Sage Mode, the recovery amount will increase by 15%.";
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"recover_hp_cp",
+                  "calc_type":"percent",
+                  "effect_name":"Recover HP CP",
+                  "amount":25,
+                  "amount_under_sage_mode":40
+               }];
+               break;
+            case "senjutsu_other_skill_2_level_1":
+               _loc3_.name = "Senjutsu: Sage Mode";
+               _loc3_.description = "When Sage mode is activated, all Ninjutsu, Taijutsu, Talent and Senjutsu will cast an extra 5% damage without costing any SP but SP generation will be stopped for 5 turns. (Sage mode cannot be removed.)";
+               _loc3_.effects = [{
+                  "effect":"sage_mode",
+                  "effect_name":"Sage Mode",
+                  "duration_deduct":"after_attack",
+                  "calc_type":"percent",
+                  "is_passive":false,
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "duration":5,
+                  "amount":5
+               }];
+               break;
+            case "senjutsu_other_skill_3_level_1":
+               _loc3_.name = "Senjutsu: Wind Bullet";
+               _loc3_.description = "Disperses target\'s all positive statuses.";
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"disperse",
+                  "calc_type":"number",
+                  "duration":0,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_toad_skill_1_level_1":
+               _loc3_.description = "Increase Max HP by 5% and All attack damage increase by 5%.";
+               _loc3_.increase_max_hp = 5;
+               _loc3_.increase_damage = 5;
+               break;
+            case "senjutsu_toad_skill_1_level_2":
+               _loc3_.description = "Increase Max HP by 5% and All attack damage increase by 5%.";
+               _loc3_.increase_max_hp = 5;
+               _loc3_.increase_damage = 5;
+               break;
+            case "senjutsu_toad_skill_1_level_3":
+               _loc3_.description = "Increase Max HP by 6% and All attack damage increase by 6%.";
+               _loc3_.increase_max_hp = 6;
+               _loc3_.increase_damage = 6;
+               break;
+            case "senjutsu_toad_skill_1_level_4":
+               _loc3_.description = "Increase Max HP by 6% and All attack damage increase by 6%.";
+               _loc3_.increase_max_hp = 6;
+               _loc3_.increase_damage = 6;
+               break;
+            case "senjutsu_toad_skill_1_level_5":
+               _loc3_.description = "Increase Max HP by 7% and All attack damage increase by 7%.";
+               _loc3_.increase_max_hp = 7;
+               _loc3_.increase_damage = 7;
+               break;
+            case "senjutsu_toad_skill_1_level_6":
+               _loc3_.description = "Increase Max HP by 8% and All attack damage increase by 7%.";
+               _loc3_.increase_max_hp = 8;
+               _loc3_.increase_damage = 7;
+               break;
+            case "senjutsu_toad_skill_1_level_7":
+               _loc3_.description = "Increase Max HP by 9% and All attack damage increase by 8%.";
+               _loc3_.increase_max_hp = 9;
+               _loc3_.increase_damage = 8;
+               break;
+            case "senjutsu_toad_skill_1_level_8":
+               _loc3_.description = "Increase Max HP by 10% and All attack damage increase by 8%.";
+               _loc3_.increase_max_hp = 10;
+               _loc3_.increase_damage = 8;
+               break;
+            case "senjutsu_toad_skill_1_level_9":
+               _loc3_.description = "Increase Max HP by 11% and All attack damage increase by 8%.";
+               _loc3_.increase_max_hp = 11;
+               _loc3_.increase_damage = 8;
+               break;
+            case "senjutsu_toad_skill_1_level_10":
+               _loc3_.description = "Increase Max HP by 12% and All attack damage increase by 8%.";
+               _loc3_.increase_max_hp = 12;
+               _loc3_.increase_damage = 8;
+               break;
+            case "senjutsu_toad_skill_2_level_1":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 30% Agility for 2 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 200;
+               _loc3_.sp_cost = 200;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":2,
+                  "type":"percent",
+                  "amount":30
+               }];
+               break;
+            case "senjutsu_toad_skill_2_level_2":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 35% Agility for 2 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 210;
+               _loc3_.sp_cost = 215;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":2,
+                  "type":"percent",
+                  "amount":35
+               }];
+               break;
+            case "senjutsu_toad_skill_2_level_3":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 40% Agility for 2 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 220;
+               _loc3_.sp_cost = 230;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":2,
+                  "type":"percent",
+                  "amount":40
+               }];
+               break;
+            case "senjutsu_toad_skill_2_level_4":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 45% Agility for 3 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 230;
+               _loc3_.sp_cost = 245;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":3,
+                  "type":"percent",
+                  "amount":45
+               }];
+               break;
+            case "senjutsu_toad_skill_2_level_5":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 50% Agility for 3 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 240;
+               _loc3_.sp_cost = 260;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":3,
+                  "type":"percent",
+                  "amount":50
+               }];
+               break;
+            case "senjutsu_toad_skill_2_level_6":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 55% Agility for 3 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 250;
+               _loc3_.sp_cost = 275;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":3,
+                  "type":"percent",
+                  "amount":55
+               }];
+               break;
+            case "senjutsu_toad_skill_2_level_7":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 60% Agility for 3 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 260;
+               _loc3_.sp_cost = 290;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":3,
+                  "type":"percent",
+                  "amount":60
+               }];
+               break;
+            case "senjutsu_toad_skill_2_level_8":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 65% Agility for 4 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 270;
+               _loc3_.sp_cost = 305;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":4,
+                  "type":"percent",
+                  "amount":65
+               }];
+               break;
+            case "senjutsu_toad_skill_2_level_9":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 70% Agility for 4 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 280;
+               _loc3_.sp_cost = 320;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":4,
+                  "type":"percent",
+                  "amount":70
+               }];
+               break;
+            case "senjutsu_toad_skill_2_level_10":
+               _loc3_.name = "Senjutsu: Toad Oil";
+               _loc3_.description = "Decrease target 75% Agility for 4 turns.";
+               _loc3_.type = "10";
+               _loc3_.damage = 300;
+               _loc3_.sp_cost = 335;
+               _loc3_.cooldown = 8;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"slow_oil",
+                  "effect_name":"Slow",
+                  "duration":4,
+                  "type":"percent",
+                  "amount":75
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_1":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 5% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 10%";
+               _loc3_.type = "10";
+               _loc3_.damage = 230;
+               _loc3_.sp_cost = 250;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":5,
+                  "oil_increase":10
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":5,
+                  "oil_increase":10
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_2":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 5% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 10%";
+               _loc3_.type = "10";
+               _loc3_.damage = 250;
+               _loc3_.sp_cost = 275;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":5,
+                  "oil_increase":10
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":5,
+                  "oil_increase":10
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_3":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 6% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 12%";
+               _loc3_.type = "10";
+               _loc3_.damage = 270;
+               _loc3_.sp_cost = 300;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":6,
+                  "oil_increase":12
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":6,
+                  "oil_increase":12
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_4":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 6% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 12%";
+               _loc3_.type = "10";
+               _loc3_.damage = 290;
+               _loc3_.sp_cost = 325;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":6,
+                  "oil_increase":12
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":6,
+                  "oil_increase":12
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_5":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 6% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 12%";
+               _loc3_.type = "10";
+               _loc3_.damage = 320;
+               _loc3_.sp_cost = 350;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":6,
+                  "oil_increase":12
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":6,
+                  "oil_increase":12
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_6":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 7% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 14%";
+               _loc3_.type = "10";
+               _loc3_.damage = 350;
+               _loc3_.sp_cost = 375;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":7,
+                  "oil_increase":14
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":7,
+                  "oil_increase":14
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_7":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 7% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 14%";
+               _loc3_.type = "10";
+               _loc3_.damage = 370;
+               _loc3_.sp_cost = 400;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":7,
+                  "oil_increase":14
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":7,
+                  "oil_increase":14
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_8":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 7% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 14%";
+               _loc3_.type = "10";
+               _loc3_.damage = 420;
+               _loc3_.sp_cost = 425;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":7,
+                  "oil_increase":14
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":7,
+                  "oil_increase":14
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_9":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 7% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 14%";
+               _loc3_.type = "10";
+               _loc3_.damage = 470;
+               _loc3_.sp_cost = 450;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":7,
+                  "oil_increase":14
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":7,
+                  "oil_increase":14
+               }];
+               break;
+            case "senjutsu_toad_skill_3_level_10":
+               _loc3_.name = "Senjutsu: Toad Fire Curse";
+               _loc3_.description = "Burn target 8% of the maximum HP & CP, if target got \'Oil\' debuff, damage increases to 16%";
+               _loc3_.type = "10";
+               _loc3_.damage = 550;
+               _loc3_.sp_cost = 475;
+               _loc3_.cooldown = 9;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_hp",
+                  "effect_name":"Reduce HP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":8,
+                  "oil_increase":16
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_reduce_cp",
+                  "effect_name":"Reduce CP",
+                  "reduce_type":"MAX",
+                  "duration":0,
+                  "type":"percent",
+                  "amount":8,
+                  "oil_increase":16
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_1":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 500 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":500
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_2":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 540 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":540
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_3":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 570 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":570
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_4":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 600 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":600
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_5":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 640 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":640
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_6":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 670 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":670
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_7":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 700 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":700
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_8":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 740 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":740
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_9":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 770 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":770
+               }];
+               break;
+            case "senjutsu_toad_skill_4_level_10":
+               _loc3_.name = "Senjutsu: Shield of Toad";
+               _loc3_.description = "Create a shield to offset 800 damage, the effect will cancel until the the damage quota used up.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 12;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"shield",
+                  "effect_name":"Shield",
+                  "duration":0,
+                  "amount":800
+               }];
+               break;
+            case "senjutsu_toad_skill_5_level_1":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 2 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 900;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 2;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_5_level_2":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 2 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 890;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 2;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_5_level_3":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 2 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 880;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 2;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_5_level_4":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 2 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 870;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 2;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_5_level_5":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 2 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 860;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 2;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_5_level_6":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 2 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 850;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 2;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_5_level_7":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 3 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 840;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 3;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_5_level_8":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 3 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 830;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 3;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_5_level_9":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 4 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 820;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 4;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_5_level_10":
+               _loc3_.name = "Senjutsu: Ishikawa Goemon";
+               _loc3_.description = "Randomly use a skill from the target and put it in cooldown for 4 turns (PvP Jutsu) (Not applicable on Talent skill and Senjutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 100;
+               _loc3_.sp_cost = 800;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.setCooldown = 4;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_6_level_1":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 15%, increase 10% of critical rate and accuracy by 20%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 15;
+               _loc3_.increase_critical_chance = 10;
+               _loc3_.increase_accuracy = 20;
+               break;
+            case "senjutsu_toad_skill_6_level_2":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 16%, increase 12% of critical rate and accuracy by 24%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 16;
+               _loc3_.increase_critical_chance = 12;
+               _loc3_.increase_accuracy = 24;
+               break;
+            case "senjutsu_toad_skill_6_level_3":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 17%, increase 14% of critical rate and accuracy by 24%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 17;
+               _loc3_.increase_critical_chance = 14;
+               _loc3_.increase_accuracy = 24;
+               break;
+            case "senjutsu_toad_skill_6_level_4":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 18%, increase 16% of critical rate and accuracy by 26%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 18;
+               _loc3_.increase_critical_chance = 16;
+               _loc3_.increase_accuracy = 26;
+               break;
+            case "senjutsu_toad_skill_6_level_5":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 19%, increase 18% of critical rate and accuracy by 28%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 19;
+               _loc3_.increase_critical_chance = 18;
+               _loc3_.increase_accuracy = 28;
+               break;
+            case "senjutsu_toad_skill_6_level_6":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 20%, increase 20% of critical rate and accuracy by 30%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 20;
+               _loc3_.increase_critical_chance = 20;
+               _loc3_.increase_accuracy = 30;
+               break;
+            case "senjutsu_toad_skill_6_level_7":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 21%, increase 22% of critical rate and accuracy by 32%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 21;
+               _loc3_.increase_critical_chance = 22;
+               _loc3_.increase_accuracy = 32;
+               break;
+            case "senjutsu_toad_skill_6_level_8":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 22%, increase 23% of critical rate and accuracy by 33%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 22;
+               _loc3_.increase_critical_chance = 23;
+               _loc3_.increase_accuracy = 33;
+               break;
+            case "senjutsu_toad_skill_6_level_9":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 23%, increase 24% of critical rate and accuracy by 34%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 23;
+               _loc3_.increase_critical_chance = 24;
+               _loc3_.increase_accuracy = 34;
+               break;
+            case "senjutsu_toad_skill_6_level_10":
+               _loc3_.name = "Senjutsu: Toad Spirit";
+               _loc3_.description = "When player\'s HP is below 25%, increase 25% of critical rate and accuracy by 35%.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [];
+               _loc3_.hp_condition = 25;
+               _loc3_.increase_critical_chance = 25;
+               _loc3_.increase_accuracy = 35;
+               break;
+            case "senjutsu_toad_skill_7_level_1":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "33% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 550;
+               _loc3_.sp_cost = 600;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":33,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_7_level_2":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "36% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 570;
+               _loc3_.sp_cost = 620;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":36,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_7_level_3":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "39% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 580;
+               _loc3_.sp_cost = 640;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":39,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_7_level_4":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "42% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 590;
+               _loc3_.sp_cost = 650;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":42,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_7_level_5":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "45% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 600;
+               _loc3_.sp_cost = 670;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":45,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_7_level_6":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "48% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 605;
+               _loc3_.sp_cost = 690;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":48,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_7_level_7":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "51% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 610;
+               _loc3_.sp_cost = 700;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":51,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_7_level_8":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "54% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 615;
+               _loc3_.sp_cost = 710;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":54,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_7_level_9":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "57% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 620;
+               _loc3_.sp_cost = 720;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":57,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_7_level_10":
+               _loc3_.name = "Senjutsu: Special Pipe";
+               _loc3_.description = "60% of making target to skip the next action time for 1 turn.";
+               _loc3_.type = "10";
+               _loc3_.damage = 625;
+               _loc3_.sp_cost = 730;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"skip_turn",
+                  "amount":60,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_1":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 1 turn, all attack damage increased 20% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 600;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":20,
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_2":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 2 turns, all attack damage increased 20% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 615;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":20,
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_3":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 2 turns, all attack damage increased 20% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 630;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":20,
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_4":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 3 turns, all attack damage increased 30% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 645;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":30,
+                  "duration":3
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_5":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 3 turns, all attack damage increased 30% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 660;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":30,
+                  "duration":3
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_6":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 3 turns, all attack damage increased 30% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 675;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":30,
+                  "duration":3
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_7":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 4 turns, all attack damage increased 40% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 690;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":40,
+                  "duration":4
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_8":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 4 turns, all attack damage increased 40% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 705;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":40,
+                  "duration":4
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_9":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 4 turns, all attack damage increased 40% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 720;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":40,
+                  "duration":4
+               }];
+               break;
+            case "senjutsu_toad_skill_8_level_10":
+               _loc3_.name = "Senjutsu: Secret Sake of Toad";
+               _loc3_.description = "In the following 5 turns, all attack damage increased 50% of maximum SP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 735;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"senjutsu_strengthen",
+                  "calc_type":"percent",
+                  "effect_name":"Strengthen",
+                  "amount":50,
+                  "duration":5
+               }];
+               break;
+            case "senjutsu_toad_skill_9_level_1":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 15% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 230;
+               _loc3_.sp_cost = 250;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 15;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_9_level_2":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 15% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 475;
+               _loc3_.sp_cost = 710;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 15;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_9_level_3":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 17% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 550;
+               _loc3_.sp_cost = 720;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 17;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_9_level_4":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 17% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 625;
+               _loc3_.sp_cost = 730;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 17;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_9_level_5":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 19% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 700;
+               _loc3_.sp_cost = 740;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 19;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_9_level_6":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 19% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 775;
+               _loc3_.sp_cost = 750;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 19;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_9_level_7":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 20% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 850;
+               _loc3_.sp_cost = 760;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 21;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_9_level_8":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 23% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 925;
+               _loc3_.sp_cost = 770;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 23;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_9_level_9":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 25% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 1000;
+               _loc3_.sp_cost = 780;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 25;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_9_level_10":
+               _loc3_.name = "Senjutsu: Power of Toad";
+               _loc3_.description = "This Senjutsu skill deals damage by 30% of the target’s maximum HP.";
+               _loc3_.type = "10";
+               _loc3_.damage = 1075;
+               _loc3_.sp_cost = 790;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.hp_requirement = 30;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_toad_skill_10_level_1":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 10% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 500;
+               _loc3_.sp_cost = 800;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":10
+               }];
+               break;
+            case "senjutsu_toad_skill_10_level_2":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 10% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 580;
+               _loc3_.sp_cost = 825;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":10
+               }];
+               break;
+            case "senjutsu_toad_skill_10_level_3":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 11% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 660;
+               _loc3_.sp_cost = 850;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":11
+               }];
+               break;
+            case "senjutsu_toad_skill_10_level_4":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 11% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 740;
+               _loc3_.sp_cost = 875;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":11
+               }];
+               break;
+            case "senjutsu_toad_skill_10_level_5":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 12% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 820;
+               _loc3_.sp_cost = 900;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":12
+               }];
+               break;
+            case "senjutsu_toad_skill_10_level_6":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 13% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 900;
+               _loc3_.sp_cost = 925;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":13
+               }];
+               break;
+            case "senjutsu_toad_skill_10_level_7":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 13% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 980;
+               _loc3_.sp_cost = 950;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":13
+               }];
+               break;
+            case "senjutsu_toad_skill_10_level_8":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 13% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 1060;
+               _loc3_.sp_cost = 975;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":13
+               }];
+               break;
+            case "senjutsu_toad_skill_10_level_9":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 14% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 1140;
+               _loc3_.sp_cost = 1000;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":14
+               }];
+               break;
+            case "senjutsu_toad_skill_10_level_10":
+               _loc3_.name = "Senjutsu: Pneuma Toad Bomb";
+               _loc3_.description = "Drain 15% of all targets\' maximum SP. (Targets\' SP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "10";
+               _loc3_.damage = 1220;
+               _loc3_.sp_cost = 1025;
+               _loc3_.cooldown = 22;
+               _loc3_.target = "Target";
+               _loc3_.multi_hit = true;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"instant_drain_sp",
+                  "effect_name":"Instant Drain SP",
+                  "reduce_type":"MAX",
+                  "calc_type":"percent",
+                  "amount":15
+               }];
+               break;
+            case "senjutsu_snake_skill_1_level_1":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 15% less CP. Cooldown of skills decrease by 1 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 15;
+               _loc3_.cooldown_decrease = 1;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_1_level_2":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 16% less CP. Cooldown of skills decrease by 1 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 16;
+               _loc3_.cooldown_decrease = 1;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_1_level_3":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 17% less CP. Cooldown of skills decrease by 1 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 17;
+               _loc3_.cooldown_decrease = 1;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_1_level_4":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 18% less CP. Cooldown of skills decrease by 1 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 18;
+               _loc3_.cooldown_decrease = 1;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_1_level_5":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 19% less CP. Cooldown of skills decrease by 1 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 19;
+               _loc3_.cooldown_decrease = 1;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_1_level_6":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 20% less CP. Cooldown of skills decrease by 1 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 20;
+               _loc3_.cooldown_decrease = 1;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_1_level_7":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 21% less CP. Cooldown of skills decrease by 1 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 21;
+               _loc3_.cooldown_decrease = 1;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_1_level_8":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 22% less CP. Cooldown of skills decrease by 1 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 22;
+               _loc3_.cooldown_decrease = 1;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_1_level_9":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 23% less CP. Cooldown of skills decrease by 1 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 23;
+               _loc3_.cooldown_decrease = 1;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_1_level_10":
+               _loc3_.name = "Senjutsu: Earth Flavor";
+               _loc3_.description = "All skills use 24% less CP. Cooldown of skills decrease by 2 when the skill is first used.";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.reduce_cp_cost = 24;
+               _loc3_.cooldown_decrease = 2;
+               _loc3_.multi_hit = false;
+               break;
+            case "senjutsu_snake_skill_2_level_1":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 3% HP for 1 turn. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 200;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":1,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":1,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_2_level_2":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 3% HP for 1 turn. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 210;
+               _loc3_.sp_cost = 180;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":1,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":1,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_2_level_3":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 3% HP for 1 turn. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 170;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":3,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":3,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_2_level_4":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 4% HP for 1 turn. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 250;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":4,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":4,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_2_level_5":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 4% HP for 2 turns. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 230;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":4,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":4,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_2_level_6":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 5% HP for 2 turns. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 300;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":5,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":5,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_2_level_7":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 5% HP for 2 turns. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 280;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":5,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":5,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_2_level_8":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 6% HP for 2 turns. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 350;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":6,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":6,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_2_level_9":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 6% HP for 2 turns. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 330;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":6,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":6,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_2_level_10":
+               _loc3_.name = "Senjutsu: Toxic Fangs";
+               _loc3_.description = "Petrify and poison target, then reduce 7% HP for 2 turns. (Petrified target cannot take any actions but will receive no damage, except damage over time)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 380;
+               _loc3_.cooldown = 17;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"toxic_tooth",
+                  "effect_name":"Toxic Tooth",
+                  "amount":7,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"poison",
+                  "effect_name":"Poison",
+                  "amount":7,
+                  "calc_type":"percent",
+                  "duration":2
+               },{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"petrify",
+                  "effect_name":"Petrify",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_1":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 30% for 1 turn, if target got \'Toxic Tooth\' debuff, the amount change to 40% for 1 turn (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 220;
+               _loc3_.sp_cost = 260;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":70,
+                  "calc_type":"percent",
+                  "duration":1,
+                  "amount_change":60
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_2":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 33% for 1 turn, if target got \'Toxic Tooth\' debuff, the amount change to 44% for 1 turn (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 240;
+               _loc3_.sp_cost = 290;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":67,
+                  "calc_type":"percent",
+                  "duration":1,
+                  "amount_change":56
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_3":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 37% for 1 turn, if target got \'Toxic Tooth\' debuff, the amount change to 48% for 2 turns (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 260;
+               _loc3_.sp_cost = 320;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":63,
+                  "calc_type":"percent",
+                  "duration":1,
+                  "amount_change":52
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_4":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 40% for 1 turn, if target got \'Toxic Tooth\' debuff, the amount change to 51% for 2 turns (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 280;
+               _loc3_.sp_cost = 350;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":60,
+                  "calc_type":"percent",
+                  "duration":1,
+                  "amount_change":49
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_5":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 44% for 2 turns, if target got \'Toxic Tooth\' debuff, the amount change to 55% for 3 turns (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 310;
+               _loc3_.sp_cost = 380;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":56,
+                  "calc_type":"percent",
+                  "duration":2,
+                  "amount_change":45
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_6":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 48% for 2 turns, if target got \'Toxic Tooth\' debuff, the amount change to 58% for 3 turns (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 340;
+               _loc3_.sp_cost = 410;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":48,
+                  "calc_type":"percent",
+                  "duration":2,
+                  "amount_change":58
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_7":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 51% for 2 turns, if target got \'Toxic Tooth\' debuff, the amount change to 65% for 3 turns (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 360;
+               _loc3_.sp_cost = 440;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":49,
+                  "calc_type":"percent",
+                  "duration":2,
+                  "amount_change":35
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_8":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 55% for 2 turns, if target got \'Toxic Tooth\' debuff, the amount change to 70% for 3 turns (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 400;
+               _loc3_.sp_cost = 470;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":45,
+                  "calc_type":"percent",
+                  "duration":2,
+                  "amount_change":30
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_9":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 58% for 3 turns, if target got \'Toxic Tooth\' debuff, the amount change to 75% for 3 turns (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 450;
+               _loc3_.sp_cost = 500;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":42,
+                  "calc_type":"percent",
+                  "duration":3,
+                  "amount_change":25
+               }];
+               break;
+            case "senjutsu_snake_skill_3_level_10":
+               _loc3_.name = "Senjutsu: Snake Swallow";
+               _loc3_.description = "Decrease the target\'s CP limit by 65% for 3 turns, if target got \'Toxic Tooth\' debuff, the amount change to 80% for 3 turns (when the effect expired, the maximum limit of CP will return to normal)";
+               _loc3_.type = "11";
+               _loc3_.damage = 490;
+               _loc3_.sp_cost = 530;
+               _loc3_.cooldown = 15;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"decrease_max_cp",
+                  "effect_name":"Snake Swallow",
+                  "amount":35,
+                  "calc_type":"percent",
+                  "duration":3,
+                  "amount_change":20
+               }];
+               break;
+            case "senjutsu_snake_skill_4_level_1":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 50% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 500;
+               _loc3_.sp_cost = 500;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 50;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_4_level_2":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 55% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 520;
+               _loc3_.sp_cost = 520;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 55;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_4_level_3":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 60% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 540;
+               _loc3_.sp_cost = 540;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 60;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_4_level_4":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 65% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 560;
+               _loc3_.sp_cost = 560;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 65;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_4_level_5":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 70% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 580;
+               _loc3_.sp_cost = 580;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 70;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_4_level_6":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 75% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 610;
+               _loc3_.sp_cost = 600;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 75;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_4_level_7":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 80% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 640;
+               _loc3_.sp_cost = 620;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 80;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_4_level_8":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 85% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 670;
+               _loc3_.sp_cost = 640;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 85;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_4_level_9":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 90% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 700;
+               _loc3_.sp_cost = 660;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 90;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_4_level_10":
+               _loc3_.name = "Senjutsu: Seven Snake Attack";
+               _loc3_.description = "This Senjutsu ignore target\'s 100% dodge rate.";
+               _loc3_.type = "11";
+               _loc3_.damage = 740;
+               _loc3_.sp_cost = 680;
+               _loc3_.cooldown = 13;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.ignore_dodge = 100;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_5_level_1":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 1 turn.";
+               _loc3_.type = "11";
+               _loc3_.damage = 445;
+               _loc3_.sp_cost = 450;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_5_level_2":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 1 turn.";
+               _loc3_.type = "11";
+               _loc3_.damage = 450;
+               _loc3_.sp_cost = 470;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_5_level_3":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 1 turn.";
+               _loc3_.type = "11";
+               _loc3_.damage = 455;
+               _loc3_.sp_cost = 490;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_5_level_4":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 1 turn.";
+               _loc3_.type = "11";
+               _loc3_.damage = 460;
+               _loc3_.sp_cost = 510;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_5_level_5":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 2 turns.";
+               _loc3_.type = "11";
+               _loc3_.damage = 465;
+               _loc3_.sp_cost = 530;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_5_level_6":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 2 turns.";
+               _loc3_.type = "11";
+               _loc3_.damage = 470;
+               _loc3_.sp_cost = 550;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_5_level_7":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 2 turns.";
+               _loc3_.type = "11";
+               _loc3_.damage = 480;
+               _loc3_.sp_cost = 580;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_5_level_8":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 3 turns.";
+               _loc3_.type = "11";
+               _loc3_.damage = 490;
+               _loc3_.sp_cost = 610;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":3
+               }];
+               break;
+            case "senjutsu_snake_skill_5_level_9":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 3 turns.";
+               _loc3_.type = "11";
+               _loc3_.damage = 500;
+               _loc3_.sp_cost = 640;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":3
+               }];
+               break;
+            case "senjutsu_snake_skill_5_level_10":
+               _loc3_.name = "Senjutsu: Snake Mark";
+               _loc3_.description = "Target cannot use Talent and Senjutsu for 4 turns.";
+               _loc3_.type = "11";
+               _loc3_.damage = 530;
+               _loc3_.sp_cost = 670;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"snake_mark",
+                  "effect_name":"Snake Mark",
+                  "duration":4
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_1":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 1 turn. (Reduce Target\'s 2% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 500;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":2,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_2":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 1 turn. (Reduce Target\'s 2% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 515;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":2,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_3":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 1 turn. (Reduce Target\'s 4% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 530;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":4,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_4":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 1 turn. (Reduce Target\'s 4% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 545;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":4,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_5":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 2 turns. (Reduce Target\'s 6% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 560;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":6,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_6":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 2 turns. (Reduce Target\'s 6% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 575;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":6,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_7":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 2 turns. (Reduce Target\'s 7% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 590;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":7,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_8":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 2 turns. (Reduce Target\'s 7% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 605;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":7,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_9":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 2 turns. (Reduce Target\'s 8% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 620;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":8,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_6_level_10":
+               _loc3_.name = "Senjutsu: Special Snake Scales";
+               _loc3_.description = "Inflict \'Venom Spread\' on user for 3 turns. (Reduce Target\'s 10% HP,CP,SP during target\'s attack)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 635;
+               _loc3_.cooldown = 18;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":true,
+                  "is_debuff":false,
+                  "effect":"venom_spread",
+                  "effect_name":"Venom Spread",
+                  "amount":10,
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "duration":3
+               }];
+               break;
+            case "senjutsu_snake_skill_7_level_1":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 95% or above, player have 13% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 95;
+               _loc3_.chance = 13;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_7_level_2":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 95% or above, player have 14% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 95;
+               _loc3_.chance = 14;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_7_level_3":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 94% or above, player have 14% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 94;
+               _loc3_.chance = 14;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_7_level_4":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 94% or above, player have 15% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 94;
+               _loc3_.chance = 15;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_7_level_5":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 93% or above, player have 15% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 94;
+               _loc3_.chance = 15;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_7_level_6":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 93% or above, player have 16% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 93;
+               _loc3_.chance = 16;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_7_level_7":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 92% or above, player have 16% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 92;
+               _loc3_.chance = 16;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_7_level_8":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 92% or above, player have 17% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 92;
+               _loc3_.chance = 17;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_7_level_9":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 91% or above, player have 17% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 91;
+               _loc3_.chance = 17;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_7_level_10":
+               _loc3_.name = "Senjutsu: Shedding";
+               _loc3_.description = "When current SP reaches to 90% or above, player have 18% chance ignore all damage and negative status.(If player get \'Sage Mode\' effect, it judges to full of SP)";
+               _loc3_.type = "11";
+               _loc3_.damage = 0;
+               _loc3_.sp_cost = 0;
+               _loc3_.cooldown = 0;
+               _loc3_.target = "Self";
+               _loc3_.multi_hit = false;
+               _loc3_.sp_condition = 90;
+               _loc3_.chance = 18;
+               _loc3_.effects = [];
+               break;
+            case "senjutsu_snake_skill_8_level_1":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 1 turn. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 300;
+               _loc3_.sp_cost = 600;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_8_level_2":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 1 turn. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 320;
+               _loc3_.sp_cost = 625;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_8_level_3":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 1 turn. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 340;
+               _loc3_.sp_cost = 650;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_8_level_4":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 1 turn. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 360;
+               _loc3_.sp_cost = 675;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_8_level_5":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 1 turn. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 380;
+               _loc3_.sp_cost = 700;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_8_level_6":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 1 turn. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 400;
+               _loc3_.sp_cost = 725;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_8_level_7":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 1 turn. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 420;
+               _loc3_.sp_cost = 750;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_8_level_8":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 1 turn. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 440;
+               _loc3_.sp_cost = 775;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_8_level_9":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 1 turn. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 460;
+               _loc3_.sp_cost = 800;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":1
+               }];
+               break;
+            case "senjutsu_snake_skill_8_level_10":
+               _loc3_.name = "Senjutsu: Psychedelic Sound";
+               _loc3_.description = "Player teases target for 2 turns. While being teased, targets are forced to use weapon attack only. (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 480;
+               _loc3_.sp_cost = 825;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"tease",
+                  "effect_name":"Tease",
+                  "duration":2
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_1":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 2 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 400;
+               _loc3_.sp_cost = 800;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":2,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_2":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 2 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 430;
+               _loc3_.sp_cost = 840;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":2,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_3":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 2 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 460;
+               _loc3_.sp_cost = 880;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":2,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_4":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 3 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 490;
+               _loc3_.sp_cost = 920;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":3,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_5":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 3 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 520;
+               _loc3_.sp_cost = 960;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":3,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_6":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 3 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 550;
+               _loc3_.sp_cost = 1000;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":3,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_7":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 3 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 580;
+               _loc3_.sp_cost = 1040;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":3,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_8":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 3 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 610;
+               _loc3_.sp_cost = 1080;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":3,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_9":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 3 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 640;
+               _loc3_.sp_cost = 1120;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":3,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_9_level_10":
+               _loc3_.name = "Senjutsu: Snakes Shadow";
+               _loc3_.description = "Target will go into chaos for 4 times in first, third and fifth turn. (If target removes the debuff, only the first turn will be remove)";
+               _loc3_.type = "11";
+               _loc3_.damage = 670;
+               _loc3_.sp_cost = 1160;
+               _loc3_.cooldown = 21;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_passive":false,
+                  "is_self_buff":false,
+                  "effect":"chaos",
+                  "calc_type":"number",
+                  "duration":4,
+                  "amount":0
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_1":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 6% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 450;
+               _loc3_.sp_cost = 650;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":6
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_2":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 7% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 520;
+               _loc3_.sp_cost = 675;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":6
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_3":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 8% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 590;
+               _loc3_.sp_cost = 700;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":8
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_4":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 9% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 660;
+               _loc3_.sp_cost = 725;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":9
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_5":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 10% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 730;
+               _loc3_.sp_cost = 750;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":10
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_6":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 11% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 800;
+               _loc3_.sp_cost = 775;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":11
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_7":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 12% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 870;
+               _loc3_.sp_cost = 800;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":12
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_8":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 13% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 940;
+               _loc3_.sp_cost = 825;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":13
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_9":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 14% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 1010;
+               _loc3_.sp_cost = 850;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":14
+               }];
+               break;
+            case "senjutsu_snake_skill_10_level_10":
+               _loc3_.name = "Senjutsu: Dragon Sublimation";
+               _loc3_.description = "Absorb target 15% HP and convert to SP (Target\'s HP : Player\'s SP = 2:1) (PvP Jutsu)";
+               _loc3_.type = "11";
+               _loc3_.damage = 1080;
+               _loc3_.sp_cost = 875;
+               _loc3_.cooldown = 20;
+               _loc3_.target = "Single";
+               _loc3_.multi_hit = false;
+               _loc3_.effects = [{
+                  "is_self_buff":false,
+                  "is_debuff":true,
+                  "effect":"absorb_hp_to_sp",
+                  "effect_name":"Absorb",
+                  "calc_type":"percent",
+                  "reduce_type":"MAX",
+                  "amount":15
+               }];
+               break;
+            default:
+               return false;
+         }
+         if("effects" in _loc3_)
+         {
+            _loc4_ = 0;
+            while(_loc4_ < _loc3_.effects.length)
+            {
+               if(_loc3_.effects[_loc4_].effect.indexOf("_faint") >= 0)
+               {
+                  --_loc3_.effects[_loc4_].duration;
+               }
+               if(!("duration" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].duration = 0;
+               }
+               if(!("calc_type" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].calc_type = "percent";
+               }
+               if(!("amount" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].amount = 0;
+               }
+               if(!("amount_prc" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].amount_prc = 0;
+               }
+               if(!("amount_hp" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].amount_hp = 0;
+               }
+               if(!("amount_cp" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].amount_cp = 0;
+               }
+               if(!("amount_protection" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].amount_protection = 0;
+               }
+               if(!("amount_change" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].amount_change = 0;
+               }
+               if(!("reduce_type" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].reduce_type = "MAX";
+               }
+               if(!("no_disperse" in _loc3_.effects[_loc4_]))
+               {
+                  _loc3_.effects[_loc4_].no_disperse = false;
+               }
+               _loc4_++;
+            }
+         }
+         else
+         {
+            _loc3_.effects = [];
+         }
+         return _loc3_;
+      }
+   }
+}
